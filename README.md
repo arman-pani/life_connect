@@ -1,39 +1,59 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# 🩸 LifeConnect – Smart Blood Search App
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
-
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
-
-* [/shared](./shared/src) is for the code that will be shared between all targets in the project.
-  The most important subfolder is [commonMain](./shared/src/commonMain/kotlin). If preferred, you
-  can add code to the platform-specific folders here too.
-
-### Build and Run Android Application
-
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
-
-### Build and Run iOS Application
-
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+LifeConnect is a **cross-platform mobile application** built with **Kotlin Multiplatform (KMP)** that helps patients instantly connect with nearby blood donors and blood banks during emergencies.  
+Designed to make blood donation and search **faster, reliable, and accessible**, LifeConnect bridges the gap between donors, recipients, and healthcare facilities.
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## 🚨 Problem
+
+In medical emergencies, finding a compatible blood donor quickly is often difficult.  
+Current methods depend on manual calls and social media posts, costing precious time and lives.
+
+---
+
+## 💡 Our Solution
+
+LifeConnect offers **real-time blood donor search** using GPS and a verified database of donors and blood banks.  
+If no donor is available nearby, the app intelligently shows **nearby hospitals and blood banks** to ensure help is always within reach.
+
+---
+
+## 🌟 Key Features
+
+- 📍 **Real-Time Donor Search** via GPS  
+- 🚨 **Emergency SOS Broadcasts** to nearby donors  
+- 🏥 **Blood Bank & Hospital Directory**  
+- 🔐 **Verified Donor Profiles**  
+- 💬 **In-App Communication (upcoming)**  
+- 📊 **Donation History & Tracking (upcoming)**  
+- 🤖 **AI-Powered Predictions (future phase)**  
+
+---
+
+## 🛠️ Tech Stack
+
+### 📱 Mobile
+- **Kotlin Multiplatform (KMP)** – Shared business logic across Android and iOS  
+- **Jetpack Compose** – Modern declarative UI for Android  
+- **SwiftUI** – Native declarative UI for iOS  
+- **Room Database** – Local caching and offline data access for Android  
+- **DataStore (Proto/Preferences)** – Persistent key-value data storage for user preferences  
+- **Hilt (DI)** – Dependency Injection for modular, testable, and maintainable codebase  
+
+### 🌐 Networking
+- **Ktor Client** – Asynchronous networking across KMP shared module  
+  - Used for RESTful API calls to backend services  
+  - Handles secure requests with authentication and data serialization  
+
+### ☁️ Backend
+- **Node.js** – API and server-side logic  
+- **Firebase Functions** – Event-driven cloud logic & push notifications  
+
+### 🗄️ Database & Services
+- **Firestore** – Real-time NoSQL database for live donor data  
+- **PostgreSQL** – Relational database for structured medical records  
+- **Firebase Auth** – Secure user authentication and session management  
+- **Google Maps API** – Location tracking, routing, and nearby search services  
+
+---
