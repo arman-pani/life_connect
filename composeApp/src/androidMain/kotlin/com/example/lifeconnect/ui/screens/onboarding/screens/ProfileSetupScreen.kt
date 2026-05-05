@@ -29,22 +29,44 @@ import com.example.lifeconnect.ui.screens.onboarding.components.BasicInfoColumn
 import com.example.lifeconnect.ui.screens.onboarding.components.PersonalInfoColumn
 import com.example.lifeconnect.ui.screens.onboarding.components.UploadPhotoSection
 import com.example.lifeconnect.ui.components.CustomFilledButton
+import com.example.lifeconnect.ui.auth.ProfileStep
+import com.example.lifeconnect.ui.auth.UserViewModel
 import kotlinx.coroutines.launch
+import org.koin.compose.viewmodel.koinViewModel
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileSetupScreen(
+    viewModel: UserViewModel = koinViewModel(),
     onSuccess: () -> Unit = {}
 ){
     val pageCount = 3
     val pagerState = rememberPagerState (initialPage = 0) { pageCount }
     val scope = rememberCoroutineScope()
 
-    val setupSections = listOf<@Composable () -> Unit>(
-        { PersonalInfoColumn() },
-        { BasicInfoColumn() },
-        { UploadPhotoSection() }
-    )
+    val profileState = viewModel.formState.collectAsStateWithLifecycle().value
+
+    // 1. Derive the current step from the pager state
+    val currentStep by remember {
+        derivedStateOf {
+            when (pagerState.currentPage) {
+                0 -> ProfileStep.PERSONAL_INFO
+                1 -> ProfileStep.BASIC_INFO
+                else -> ProfileStep.PHOTO
+            }
+        }
+    }
+
+// 2. Derive the validity based on the step and the form data
+    val isCurrentStepValid by remember(profileState) {
+        derivedStateOf {
+            viewModel.isStepValid(currentStep)
+        }
+    }
 
     Scaffold (
         topBar = {
@@ -89,19 +111,26 @@ fun ProfileSetupScreen(
                 modifier = Modifier.fillMaxWidth(),
                 userScrollEnabled = false
             ) {page ->
-                setupSections[page]()
+                when (page) {
+                    0 -> PersonalInfoColumn(viewModel, profileState )
+                    1 -> BasicInfoColumn(viewModel, profileState)
+                    2 -> UploadPhotoSection(viewModel, profileState)
+                }
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
             CustomFilledButton(
+                enabled = isCurrentStepValid,
                 onClick = {
-                    scope.launch {
-                        if (pagerState.currentPage < pageCount - 1) {
+                    if (pagerState.currentPage < pageCount - 1) {
+                        scope.launch {
                             pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                        } else {
-                            onSuccess()
                         }
+                    } else {
+                        // Logic for final step
+                        viewModel.saveProfile()
+                        onSuccess()
                     }
                 },
                 label = if (pagerState.currentPage < pageCount - 1) "Next" else "Home",

@@ -32,6 +32,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.lifeconnect.ui.screens.profile.components.DefaultAppBar
 import com.example.lifeconnect.ui.screens.profile.components.NavigableSettingsRow
 import com.example.lifeconnect.ui.screens.profile.components.ToggleSettingsRow
 import com.example.lifeconnect.ui.screens.profile.models.NavigableSettingsItem
@@ -40,7 +42,7 @@ import com.example.lifeconnect.ui.screens.profile.models.ToggleSettingsItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(modifier: Modifier = Modifier) {
+fun SettingsScreen(modifier: Modifier = Modifier, onBackClick: () -> Unit = {}) {
     val context = LocalContext.current // To show toasts
 
     // State for toggle items
@@ -128,27 +130,9 @@ fun SettingsScreen(modifier: Modifier = Modifier) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        "Settings",
-                        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold, fontSize = 20.sp),
-                        modifier = Modifier.padding(start = 8.dp) // Add padding to title
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = { /* Handle back button click */ Toast.makeText(context, "Back clicked", Toast.LENGTH_SHORT).show() }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                            contentDescription = "Back",
-                            tint = Color.Black
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface, // Use surface color for app bar
-                    titleContentColor = Color.Black // Ensure title is black
-                )
+            DefaultAppBar(
+                title = "Settings",
+                onBackClick
             )
         },
         containerColor = MaterialTheme.colorScheme.background // Set screen background

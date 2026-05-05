@@ -29,13 +29,14 @@ fun InputDropdownField(
         label: String = "Your Blood Group",
         placeholder: String = "Enter group",
         options: List<String> = listOf("Option 1", "Option 2", "Option 3"),
+        value: String = "",
+        onSelect: (String) -> Unit = {},
     )
 {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        var selectedOption by remember { mutableStateOf("") }
         var expanded by remember { mutableStateOf(false) }
         Text(
             label,
@@ -47,7 +48,7 @@ fun InputDropdownField(
             onExpandedChange = {expanded = !expanded}
         ) {
             OutlinedTextField(
-                value = selectedOption,
+                value = value,
                 onValueChange = {},
                 readOnly = true,
                 textStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.DarkGray),
@@ -76,8 +77,8 @@ fun InputDropdownField(
                     DropdownMenuItem(
                         text = {Text(option)},
                         onClick = {
-                            selectedOption = option
                             expanded = false
+                            onSelect(option)
                         }
                     )
                 }

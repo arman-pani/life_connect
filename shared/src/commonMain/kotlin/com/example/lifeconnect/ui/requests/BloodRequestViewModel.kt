@@ -1,9 +1,9 @@
-package com.example.lifeconnect.ui.screens.requests.viewModels
+package com.example.lifeconnect.ui.requests
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lifeconnect.data.dummyBloodRequests
-import com.example.lifeconnect.ui.screens.requests.BloodRequestDetails
+import com.example.lifeconnect.models.BloodRequestDetails
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

@@ -1,9 +1,8 @@
-package com.example.lifeconnect.ui.screens.requests.viewModels
+package com.example.lifeconnect.ui.requests
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lifeconnect.ui.screens.requests.models.CreateRequestData
-import com.example.lifeconnect.ui.screens.requests.models.LocationResultData
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -22,7 +21,7 @@ class CreateRequestViewModel : ViewModel() {
         // Simulate an asynchronous API call to get the device's location
         viewModelScope.launch {
             // Delay to simulate network/GPS lookup time
-            kotlinx.coroutines.delay(1500)
+            delay(1500)
 
             // Simulate the successful retrieval of coordinates and address
             _uiState.update { currentState ->
@@ -90,7 +89,7 @@ class CreateRequestViewModel : ViewModel() {
 
         viewModelScope.launch {
             // Simulate API call to submit the request
-            kotlinx.coroutines.delay(1000)
+            delay(1000)
 
             // After successful submission:
             _uiState.update { it.copy(requestSuccessful = true) }

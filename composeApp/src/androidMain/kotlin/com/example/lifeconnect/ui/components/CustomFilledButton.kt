@@ -11,8 +11,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CustomFilledButton(onClick: ()-> Unit, label: String){
+fun CustomFilledButton(onClick: ()-> Unit, label: String, enabled: Boolean = true){
     Button(
+        enabled = enabled,
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth(),

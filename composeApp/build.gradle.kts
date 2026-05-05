@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -6,6 +7,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
 }
 
 kotlin {
@@ -27,10 +30,23 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodelCompose)
-            implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(projects.shared)
             implementation("androidx.navigation:navigation-compose:2.8.3")
+            implementation(libs.koin.android)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.room.runtime)
+
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network)
+
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+
+            implementation("androidx.compose.material:material-icons-extended:1.7.8")
+            implementation("com.google.maps.android:maps-compose:6.12.2")
+            implementation("com.google.android.gms:play-services-location:21.3.0")
+            implementation("io.github.vinceglb:filekit-dialogs-compose:0.12.0")
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -68,4 +84,3 @@ android {
 dependencies {
     debugImplementation(compose.uiTooling)
 }
-

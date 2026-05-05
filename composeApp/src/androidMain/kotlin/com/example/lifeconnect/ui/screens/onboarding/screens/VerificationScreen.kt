@@ -1,4 +1,4 @@
-package com.example.lifeconnect.ui.screens
+package com.example.lifeconnect.ui.screens.onboarding.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,15 +20,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.lifeconnect.ui.auth.UserViewModel
 import com.example.lifeconnect.ui.components.CustomClickableText
 import com.example.lifeconnect.ui.components.CustomFilledButton
 import com.example.lifeconnect.ui.components.OtpTextField
+import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VerificationScreen(
+    viewModel: UserViewModel = koinViewModel(),
     onSuccess: () -> Unit = {}
 ){
+    val mobileNumber = viewModel.user.value?.mobileNumber ?: ""
+
     Scaffold (
         topBar = {
             TopAppBar(
@@ -46,7 +51,7 @@ fun VerificationScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                "We have sent a verification code to your number: +91 88888 88888",
+                "We have sent a verification code to your number: $mobileNumber",
                 style = MaterialTheme.typography.bodyMedium
             )
             OtpTextField(

@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.lifeconnect.ui.screens.requests.BloodRequestDetails
+import com.example.lifeconnect.models.BloodRequestDetails
 
 
 @Composable
@@ -33,7 +33,8 @@ fun RequestCard(modifier: Modifier = Modifier, requestDetails: BloodRequestDetai
     Card(
         onClick = onClick,
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         ),

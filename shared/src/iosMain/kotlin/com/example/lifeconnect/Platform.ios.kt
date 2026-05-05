@@ -1,9 +1,9 @@
 package com.example.lifeconnect
 
+import com.example.lifeconnect.data.local.DbBuilderFactory
+import org.koin.dsl.module
 import platform.UIKit.UIDevice
 
-class IOSPlatform: Platform {
-    override val name: String = UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
+val platformModule = module {
+    single { DbBuilderFactory() }
 }
-
-actual fun getPlatform(): Platform = IOSPlatform()

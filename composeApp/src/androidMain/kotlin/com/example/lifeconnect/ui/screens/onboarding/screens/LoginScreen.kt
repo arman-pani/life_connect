@@ -32,15 +32,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.lifeconnect.ui.components.CustomFilledButton
+import com.example.lifeconnect.ui.auth.UserViewModel
+import org.koin.compose.viewmodel.koinViewModel
+import androidx.compose.runtime.collectAsState
 
 @Composable
 fun LoginScreen(
-    viewModel: UserViewModel = viewModel(),
+    viewModel: UserViewModel = koinViewModel(),
     onContinue: () -> Unit = {}
 ){
-    var mobileNumber by rememberSaveable { mutableStateOf("") }
+    val state by viewModel.user.collectAsState()
+    var mobileNumber by rememberSaveable { mutableStateOf(state?.mobileNumber ?: "") }
 
     Scaffold { innerPadding ->
         Column (
@@ -75,7 +78,10 @@ fun LoginScreen(
             )
             Spacer(modifier = Modifier.weight(4f))
             CustomFilledButton(
-                onClick = onContinue,
+                onClick = {
+                    viewModel.saveMobileNumber(mobileNumber)
+                    onContinue()
+                },
                 label = "Login"
             )
             Spacer(modifier = Modifier.weight(0.25f))

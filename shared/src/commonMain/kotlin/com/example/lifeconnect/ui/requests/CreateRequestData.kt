@@ -1,4 +1,4 @@
-package com.example.lifeconnect.ui.screens.requests.models
+package com.example.lifeconnect.ui.requests
 
 data class CreateRequestData(
     val patientName: String = "",

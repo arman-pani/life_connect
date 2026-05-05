@@ -1,4 +1,4 @@
-package com.example.lifeconnect.ui.screens.requests.models
+package com.example.lifeconnect.ui.requests
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

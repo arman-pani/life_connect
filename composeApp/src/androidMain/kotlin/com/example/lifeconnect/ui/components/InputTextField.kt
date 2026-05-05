@@ -1,9 +1,14 @@
 package com.example.lifeconnect.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -15,7 +20,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun InputTextField(label: String, value: String, placeholder: String, maxLines: Int = 1){
+fun InputTextField(
+    label: String,
+    value: String,
+    placeholder: String,
+    maxLines: Int = 1,
+    readOnly: Boolean = false,
+    onValueChange: (String) -> Unit = {},
+    trailingIcon: @Composable () -> Unit = {},
+){
     Column (
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -26,7 +39,9 @@ fun InputTextField(label: String, value: String, placeholder: String, maxLines: 
         )
         OutlinedTextField(
             value = value,
-            onValueChange = {},
+            onValueChange = onValueChange,
+            readOnly = readOnly,
+            trailingIcon = trailingIcon,
             textStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.DarkGray),
             placeholder = { Text(placeholder, color = Color.LightGray) },
             modifier = Modifier.fillMaxWidth(),
@@ -37,7 +52,8 @@ fun InputTextField(label: String, value: String, placeholder: String, maxLines: 
                 unfocusedBorderColor = Color.LightGray,
                 cursorColor = Color.DarkGray
             ),
-        )
+            )
+
     }
 }
 

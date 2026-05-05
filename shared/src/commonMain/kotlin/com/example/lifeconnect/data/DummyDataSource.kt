@@ -1,8 +1,6 @@
 package com.example.lifeconnect.data
 
-
-import com.example.lifeconnect.R
-import com.example.lifeconnect.ui.screens.requests.BloodRequestDetails
+import com.example.lifeconnect.models.BloodRequestDetails
 
 val dummyBloodRequests = listOf(
     BloodRequestDetails(

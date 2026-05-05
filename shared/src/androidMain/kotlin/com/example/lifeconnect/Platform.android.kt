@@ -1,9 +1,9 @@
 package com.example.lifeconnect
 
-import android.os.Build
+import com.example.lifeconnect.data.local.DbBuilderFactory
+import org.koin.dsl.module
 
-class AndroidPlatform : Platform {
-    override val name: String = "Android ${Build.VERSION.SDK_INT}"
+val platformModule = module {
+    single { DbBuilderFactory(get()) }
+    single<ImageStorageUtils> { AndroidImageStorageUtils(get()) }
 }
-
-actual fun getPlatform(): Platform = AndroidPlatform()

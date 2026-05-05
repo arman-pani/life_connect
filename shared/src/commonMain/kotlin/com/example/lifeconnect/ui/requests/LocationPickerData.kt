@@ -1,4 +1,7 @@
 package com.example.lifeconnect.ui.requests
 
-class LocationPickerData {
-}
+data class LocationResultData(
+    val address: String,
+    val lat: Double,
+    val lng: Double
+)

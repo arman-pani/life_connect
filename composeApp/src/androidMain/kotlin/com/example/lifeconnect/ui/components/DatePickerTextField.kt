@@ -36,8 +36,11 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DatePickerTextField(){
-    var selectedDate by remember { mutableStateOf("") }
+fun DatePickerTextField(
+    modifier: Modifier = Modifier,
+    value: String,
+    onValueChange: (String) -> Unit
+){
     var showDatePicker by remember { mutableStateOf(false)}
     val datePickerState = rememberDatePickerState()
 
@@ -50,7 +53,7 @@ fun DatePickerTextField(){
             style = MaterialTheme.typography.titleMedium
         )
         OutlinedTextField(
-            value = selectedDate,
+            value = value,
             onValueChange = {},
             readOnly = true,
             textStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.DarkGray),
@@ -84,7 +87,7 @@ fun DatePickerTextField(){
                         if (millis != null) {
                             val formatted = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                                 .format(Date(millis))
-                            selectedDate = formatted
+                            onValueChange(formatted)
                         }
                         showDatePicker = false
                     }) {
